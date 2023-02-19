@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\API\BukuController;
-use App\Http\Controllers\API\IdentitasController;
-use App\Http\Controllers\API\KategoriControlller;
-use App\Http\Controllers\API\PeminjamanController;
-use App\Http\Controllers\API\PenerbitController;
-use App\Http\Controllers\API\PesanController;
-use App\Http\Controllers\API\UserController;
+use App\Http\Controllers\Api\BukuController;
+use App\Http\Controllers\Api\IdentitasController;
+use App\Http\Controllers\Api\KategoriControlller;
+use App\Http\Controllers\Api\PeminjamanController;
+use App\Http\Controllers\Api\PenerbitController;
+use App\Http\Controllers\Api\PesanController;
+use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

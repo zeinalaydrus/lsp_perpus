@@ -12,6 +12,7 @@ class Identitas extends Model
     protected $table = 'identitas';
 
     protected $fillable = [
+        'foto',
         'nama_app',
         'alamat_app',
         'email_app',

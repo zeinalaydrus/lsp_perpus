@@ -53,6 +53,10 @@
                         <button class="btn btn-primary w-100" type="submit">Login</button>
                     </form>
                 </div>
+                <div class="text-center mt-5 text-lg fs-4">
+                    <p class='text-gray-600'>Belum Memiliki Akun? <a href="{{ route('register') }}"
+                            class="font-bold">Register</a>.</p>
+                </div>
             </div>
             <div class="col-lg-7 d-none d-lg-block">
                 <div id="auth-right">

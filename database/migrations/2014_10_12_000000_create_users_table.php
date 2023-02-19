@@ -24,8 +24,8 @@ class CreateUsersTable extends Migration
             $table->string('kelas', 50)->nullable();
             $table->string('alamat', 225)->nullable();
             $table->string('verif', 50)->nullable();
-            $table->enum('role',['admin', 'user']);
-            $table->date('join_date');
+            $table->enum('role', ['user', 'admin']);
+            $table->date('join_date')->nullable();
             $table->date('terakhir_login')->nullable();
             $table->rememberToken();
             $table->timestamps();

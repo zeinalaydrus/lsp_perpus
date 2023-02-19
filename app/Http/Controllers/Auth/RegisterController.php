@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -50,8 +52,11 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'fullname' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'kelas' => ['required', 'string', 'max:255',],
+            'nis' => ['required', 'string', 'max:255',],
+            'alamat' => ['required', 'string',],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -64,10 +69,27 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $count = User::where('role', 'user')->count();
+        $kode = 'AA00'.($count+1);
+
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
+            'fullname' => $data['fullname'],
+            'username' => $data['username'],
+            'kelas' => $data['kelas'],
+            'nis' => $data['nis'],
+            'role' => 'user',
+            'kode' => $kode,
+            'alamat' => $data['alamat'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        return redirect()->route('login');
     }
 }

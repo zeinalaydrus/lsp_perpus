@@ -8,8 +8,14 @@
 
     <link rel="stylesheet" href="/assets/css/main/app.css">
 
-    <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon" />
     <link rel="shortcut icon" href="/assets/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/main/app.css" />
+    <link rel="stylesheet" href="/assets/css/main/app-dark.css" />
+    <link rel="stylesheet" href="/assets/extensions/choices.js/public/assets/styles/choices.css">
+    <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css" />
+    <link rel="stylesheet" href="/assets/css/pages/simple-datatables.css" />
+    <link rel="stylesheet" href="/assets/css/shared/iconly.css" />
 </head>
 
 <body>
@@ -56,55 +62,110 @@
                         <li class="sidebar-title">Main Menu</li>
 
 
-                       
-<li class="sidebar-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
-    <a href="{{route('admin/dashboard')}}" class='sidebar-link'>
-        <i class="bi bi-book"></i>
-        <span>Dashboard</span>
-    </a>
-</li>
 
-<li class="sidebar-item {{ request()->is('admin/buku') ? 'active' : '' }}">
-    <a href="{{route('admin/buku')}}" class='sidebar-link'>
-        <i class="bi bi-journal-arrow-down"></i>
-        <span>Buku</span>
-    </a>
-</li>
+                        <li class="sidebar-item {{ request()->is('admin/dashboard') ? 'active' : '' }}">
+                            <a href="{{ route('admin/dashboard') }}" class='sidebar-link'>
+                                <i class="bi bi-grid-3x3-gap-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+                        <li
+                            class="sidebar-item {{ request()->is('admin/buku*', 'admin/penerbit*', 'admin/kategori*') ? 'active' : '' }} has-sub">
+                            <a href="{{ url('data-master') }}" class='sidebar-link'>
+                                <i class="bi bi-collection"></i>
+                                <span>Katalog Buku</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item {{ request()->is('admin/buku') ? 'active' : '' }}">
+                                    <a href="{{ route('admin/buku') }}" class='sidebar-link'>
+                                        <i class="bi bi-journal"></i>
+                                        <span>Buku</span>
+                                    </a>
+                                </li>
 
-<li class="sidebar-item {{ request()->is('admin/penerbit') ? 'active' : '' }}">
-    <a href="{{route('admin/penerbit')}}" class='sidebar-link'>
-        <i class="bi bi-journal-arrow-down"></i>
-        <span>Penerbit</span>
-    </a>
-</li>
+                                <li class="submenu-item {{ request()->is('admin/penerbit') ? 'active' : '' }}">
+                                    <a href="{{ route('admin/penerbit') }}" class='sidebar-link'>
+                                        <i class="bi bi-award"></i>
+                                        <span>Penerbit</span>
+                                    </a>
+                                </li>
 
-<li class="sidebar-item {{ request()->is('admin/kategori') ? 'active' : '' }}">
-    <a href="{{route('admin/kategori')}}" class='sidebar-link'>
-        <i class="bi bi-journal-arrow-down"></i>
-        <span>Kategori</span>
-    </a>
-</li>
+                                <li class="submenu-item {{ request()->is('admin/kategori') ? 'active' : '' }}">
+                                    <a href="{{ route('admin/kategori') }}" class='sidebar-link'>
+                                        <i class="bi bi-collection"></i>
+                                        <span>Kategori</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li
+                            class="sidebar-item {{ request()->is('admin/admin*', 'admin/user*') ? 'active' : '' }} has-sub">
+                            <a href="{{ url('data-master') }}" class='sidebar-link'>
+                                <i class="bi bi-collection"></i>
+                                <span>Master Data</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item {{ request()->is('admin/user') ? 'active' : '' }}">
+                                    <a href="{{ route('admin/user') }}" class='sidebar-link'>
+                                        <i class="bi bi-person"></i>
+                                        <span>User</span>
+                                    </a>
+                                </li>
 
-<li class="sidebar-item {{ request()->is('admin/identitas') ? 'active' : '' }}">
-    <a href="{{route('admin/identitas')}}" class='sidebar-link'>
-        <i class="bi bi-person-circle"></i>
-        <span>Identitas</span>
-    </a>
-</li>
 
+                                <li class="submenu-item {{ request()->is('admin/admin') ? 'active' : '' }}">
+                                    <a href="{{ route('admin/admin') }}" class='sidebar-link'>
+                                        <i class="bi bi-person"></i>
+                                        <span>Admin</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item {{ request()->is('admin/laporan') ? 'active' : '' }}">
+                            <a href="{{ route('admin/laporan') }}" class='sidebar-link'>
+                                <i class="bi bi-book"></i>
+                                <span>Laporan Perpustakaan</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-title">Lain-lain</li>
+
+                        <li class="sidebar-item {{ request()->is('admin/identitas') ? 'active' : '' }}">
+                            <a href="{{ route('admin/identitas') }}" class='sidebar-link'>
+                                <i class="bi bi-person-circle"></i>
+                                <span>Identitas</span>
+                            </a>
+                        </li>
+                        <li
+                        class="sidebar-item {{ Request::is('admin/pesan/masuk*', 'admin/pesan/terkirim*') ? 'active' : '' }} has-sub">
+                        <a href="{{ url('/admin/pesan') }}" class='sidebar-link'>
+                            <i class="bi bi-envelope"></i>
+                            <span>Pesan</span>
+                        </a>
+                        <ul class="submenu ">
+                            <li class="submenu-item ">
+                                <a href="{{ url('/admin/pesan/masuk') }}">Pesan Masuk</a>
+                            </li>
+                            <li class="submenu-item ">
+                                <a href="{{ url('/admin/pesan/terkirim') }}">Pesan Terkirim</a>
+                            </li>
+                        </ul>
+                    </li>
 
                         <li class="sidebar-title">Lanjutan</li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-left"></i><span>Logout</span>
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"><i
+                                    class="bi bi-box-arrow-left"></i><span>Logout</span>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-                    </li>
-                    </ul>
+                        </li>
+
                 </div>
             </div>
         </div>
@@ -180,8 +241,8 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">John Ducky</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <h6 class="mb-0 text-gray-600">{{ \Auth::user()->fullname }}</h6>
+                                            <p class="mb-0 text-sm text-gray-600">{{ \Auth::user()->role }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">

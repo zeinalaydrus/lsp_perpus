@@ -19,21 +19,24 @@ class BukuController extends Controller
 
     public function create(Request $request)
     {
-        $judul = $request->judul;
-        $kategori_id = $request->kategori_id;
-        $penerbit_id = $request->penerbit_id;
-        $pengarang = $request->pengarang;
-        $tahun_terbit = $request->tahun_terbit;
-        $isbn = $request->isbn;
-        $j_buku_baik = $request->j_buku_baik;
-        $j_buku_rusak = $request->j_buku_rusak;
-
         $buku = Buku::create(
             $request->all()
         );
 
+        if ($request->hasFile('foto')) {
+            $destination = 'public/foto';
+            $foto = $request->file('foto');
+            $foto_name = $foto->getClientOriginalName();
+            $path = $request->file('foto')->storeAs($destination, $foto_name);
+
+            $buku->update([
+                'foto' => $foto_name
+            ]);
+        }
+
         return response()->json([
-            'msg' => $buku
+            'msg' => 'Berhasil Menambah Data',
+            'data' => $buku
         ]);
     }
 

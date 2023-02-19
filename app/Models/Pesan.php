@@ -14,9 +14,24 @@ class Pesan extends Model
     protected $fillable = [
         'penerima_id',
         'pengirim_id',
-        'judul_pesan',
+        'judul',
         'isi',
         'status',
         'tanggal_kirim',
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function penerima()
+    {
+        return $this->belongsTo(User::class, 'penerima_id', 'id');
+    }
+
+    public function pengirim()
+    {
+        return $this->belongsTo(User::class, 'pengirim_id', 'id');
+    }
 }

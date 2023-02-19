@@ -8,8 +8,14 @@
 
     <link rel="stylesheet" href="/assets/css/main/app.css">
 
-    <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="/assets/images/logo/favicon.svg" type="image/x-icon" />
     <link rel="shortcut icon" href="/assets/images/logo/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/assets/css/main/app.css" />
+    <link rel="stylesheet" href="/assets/css/main/app-dark.css" />
+    <link rel="stylesheet" href="/assets/extensions/choices.js/public/assets/styles/choices.css">
+    <link rel="stylesheet" href="/assets/extensions/simple-datatables/style.css" />
+    <link rel="stylesheet" href="/assets/css/pages/simple-datatables.css" />
+
 </head>
 
 <body>
@@ -84,7 +90,7 @@
                         <li
                             class="sidebar-item {{ Request::is('user/pengembalian_riwayat*', 'user/pengembalian*') ? 'active' : '' }} has-sub">
                             <a href="{{ url('/user/pengembalian') }}" class='sidebar-link'>
-                                <i class="bi bi-arrow-left-right"></i>
+                                <i class="bi bi-arrow-repeat"></i>
                                 <span>Pengembalian</span>
                             </a>
                             <ul class="submenu ">
@@ -102,20 +108,20 @@
 
 
                         <li
-                        class="sidebar-item {{ Request::is('user/pesan/masuk*', 'user/pesan/terkirim*') ? 'active' : '' }} has-sub">
-                        <a href="{{ url('/user/pesan') }}" class='sidebar-link'>
-                            <i class="bi bi-arrow-left-right"></i>
-                            <span>Pesan</span>
-                        </a>
-                        <ul class="submenu ">
-                            <li class="submenu-item ">
-                                <a href="{{ url('/user/pesan/masuk') }}">Pesan Masuk</a>
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="{{ url('/user/pesan/terkirim') }}">Pesan Terkirim</a>
-                            </li>
-                        </ul>
-                    </li>
+                            class="sidebar-item {{ Request::is('user/pesan/masuk*', 'user/pesan/terkirim*') ? 'active' : '' }} has-sub">
+                            <a href="{{ url('/user/pesan') }}" class='sidebar-link'>
+                                <i class="bi bi-envelope"></i>
+                                <span>Pesan</span>
+                            </a>
+                            <ul class="submenu ">
+                                <li class="submenu-item ">
+                                    <a href="{{ url('/user/pesan/masuk') }}">Pesan Masuk</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ url('/user/pesan/terkirim') }}">Pesan Terkirim</a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li class="sidebar-item {{ request()->is('user/profil') ? 'active' : '' }}">
                             <a href="{{ route('user/profil') }}" class='sidebar-link'>
@@ -129,13 +135,14 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{ route('logout') }}"
-                            onclick="event.preventDefault();
-                                            document.getElementById('logout-form').submit();"><i class="bi bi-box-arrow-left"></i><span>Logout</span>
+                                onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();"><i
+                                    class="bi bi-box-arrow-left"></i><span>Logout</span>
                             </a>
                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
-                    </li>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -212,8 +219,8 @@
                                 <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                     <div class="user-menu d-flex">
                                         <div class="user-name text-end me-3">
-                                            <h6 class="mb-0 text-gray-600">{{ \Auth::user()->name }}</h6>
-                                            <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <h6 class="mb-0 text-gray-600">{{ \Auth::user()->fullname }}</h6>
+                                            <p class="mb-0 text-sm text-gray-600">{{ \Auth::user()->role }}</p>
                                         </div>
                                         <div class="user-img d-flex align-items-center">
                                             <div class="avatar avatar-md">
@@ -225,17 +232,21 @@
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                                     style="min-width: 11rem;">
                                     <li>
-                                        <h6 class="dropdown-header">Hello, John!</h6>
+                                        <h6 class="dropdown-header">Hello, {{ \Auth::user()->username }}</h6>
                                     </li>
                                     <li><a class="dropdown-item" href="{{ route('user/profil') }}"><i
                                                 class="icon-mid bi bi-person me-2"></i> My
                                             Profile</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-gear me-2"></i>
-                                            Settings</a></li>
-                                    <li><a class="dropdown-item" href="#"><i
-                                                class="icon-mid bi bi-wallet me-2"></i>
-                                            Wallet</a></li>
+                                    <li> <a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();
+                                                    document.getElementById('logout-form').submit();"><i
+                                                class="bi bi-box-arrow-left me-2 "></i> Logout
+                                        </a>
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                            class="d-none">
+                                            @csrf
+                                        </form>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -249,8 +260,12 @@
     </div>
     <script src="/assets/js/bootstrap.js"></script>
     <script src="/assets/js/app.js"></script>
+
     <script src="/assets/extensions/simple-datatables/umd/simple-datatables.js"></script>
     <script src="/assets/js/pages/simple-datatables.js"></script>
+
+    <script src="/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
+    <script src="/assets/js/pages/form-element-select.js"></script>
 
 </body>
 

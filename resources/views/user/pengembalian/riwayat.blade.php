@@ -1,10 +1,14 @@
 @extends('user.layouts.master')
 @section('content')
-    <div class="card shadow">
-        <div class="container">
+    <div class="card shadow px-3 py-4">
+        <div class="container-fluid">
+            @if (session('status'))
+                <div class="alert alert-{{ session('status') }}" role="alert">{{ session('message') }} </div>
+            @endif
             <div class="card-header">
                 <h3>Pengembalian</h3>
             </div>
+
             <section class="section">
                 <div class="card-body">
                     <table class="table table-striped" id="table1">
